@@ -1,0 +1,3 @@
+rootProject.name = 'update-loop'
+
+include 'implementation', 'testbench'
