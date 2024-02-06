@@ -55,7 +55,7 @@ public class TestUpdateLoop {
         AtomicInteger counter = new AtomicInteger(0);
 
         long startTime = System.nanoTime();
-        UpdateLoop updater = new UpdateLoop(counter::incrementAndGet, period);
+        UpdateLoop updater = new UpdateLoop(loop -> counter.incrementAndGet(), period);
         updater.start();
 
         Thread.sleep(sleepTime);
@@ -86,7 +86,7 @@ public class TestUpdateLoop {
     @Test
     public void testWithDynamicPeriod() throws InterruptedException {
         AtomicInteger counter = new AtomicInteger(0);
-        UpdateLoop updater = new UpdateLoop(counter::incrementAndGet, 1_000_000L);
+        UpdateLoop updater = new UpdateLoop(loop -> counter.incrementAndGet(), 1_000_000L);
 
         updater.start();
         Thread.sleep(500);

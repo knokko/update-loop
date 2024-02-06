@@ -1,5 +1,7 @@
 package com.github.knokko.update;
 
+import java.util.function.Consumer;
+
 import static java.lang.Math.max;
 
 public class UpdateLoop implements Runnable {
@@ -14,25 +16,29 @@ public class UpdateLoop implements Runnable {
         return sleepNanoTime / 1_000_000;
     }
 
-    private final Runnable updateFunction;
+    private final Consumer<UpdateLoop> updateFunction;
     private final SlidingWindow slidingWindow;
 
     private volatile long period;
     private volatile boolean shouldContinue = true;
 
-    public UpdateLoop(Runnable updateFunction, long initialPeriod, int windowSize) {
+    public UpdateLoop(Consumer<UpdateLoop> updateFunction, long initialPeriod, int windowSize) {
         this.updateFunction = updateFunction;
         this.slidingWindow = new SlidingWindow(windowSize);
         this.period = initialPeriod;
     }
 
-    public UpdateLoop(Runnable updateFunction, long initialPeriod) {
+    public UpdateLoop(Consumer<UpdateLoop> updateFunction, long initialPeriod) {
         this(updateFunction, initialPeriod, max(4, (int) (1_000_000_000L / initialPeriod)));
     }
 
     public void setPeriod(long newPeriod) {
         slidingWindow.forget();
         period = newPeriod;
+    }
+
+    public long getPeriod() {
+        return period;
     }
 
     public void start() {
@@ -61,7 +67,7 @@ public class UpdateLoop implements Runnable {
             } while (sleepTime > 0L);
 
             slidingWindow.insert(System.nanoTime());
-            if (shouldContinue) updateFunction.run();
+            if (shouldContinue) updateFunction.accept(this);
         }
     }
 }
