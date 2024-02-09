@@ -6,8 +6,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.github.knokko.update.UpdateLoop.determineSleepTime;
 import static java.lang.Math.abs;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TestUpdateLoop {
 
@@ -101,5 +100,19 @@ public class TestUpdateLoop {
         int expectedValue = midValue + 5;
 
         if (abs(finalValue - expectedValue) > 3) assertEquals(expectedValue, finalValue);
+    }
+
+    @Test
+    public void testCannotStartTwice() throws InterruptedException {
+        UpdateLoop updateLoop = new UpdateLoop(loop -> {}, 100_000_000L);
+        updateLoop.start();
+
+        // Give the update thread time to start
+        Thread.sleep(500);
+
+        assertThrows(IllegalStateException.class, updateLoop::run);
+        updateLoop.stop();
+
+        assertThrows(IllegalStateException.class, updateLoop::run);
     }
 }
