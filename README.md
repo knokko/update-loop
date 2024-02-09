@@ -59,5 +59,36 @@ For demonstration purposes, this project also has a `testbench` [module
 ### Add as dependency
 Since this library only has 4 small classes, you could just
 copy & paste them into your own project. If you prefer
-proper dependency management, you can use Gradle or Maven
-and Jitpack.
+proper dependency management, you can use Jitpack:
+
+#### Gradle
+```
+...
+repositories {
+  ...
+  maven { url 'https://jitpack.io' }
+}
+...
+dependencies {
+  ...
+  implementation 'com.github.knokko.update-loop:implementation:v1.0.0'
+}
+```
+
+#### Maven
+```
+...
+<repositories>
+  ...
+  <repository>
+    <id>jitpack.io</id>
+    <url>https://jitpack.io</url>
+  </repository>
+</repositories>
+...
+<dependency>
+  <groupId>com.github.knokko.update-loop</groupId>
+  <artifactId>implementation</artifactId>
+  <version>v1.0.0</version>
+</dependency>
+```
