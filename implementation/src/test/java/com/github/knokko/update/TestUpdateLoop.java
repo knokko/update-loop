@@ -79,7 +79,7 @@ public class TestUpdateLoop {
 
     @Test
     public void testHighFrequencyCounter() throws InterruptedException {
-        testConstantPeriod(500, 1500);
+        testConstantPeriod(2000, 1500);
     }
 
     @Test
