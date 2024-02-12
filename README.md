@@ -57,7 +57,7 @@ For demonstration purposes, this project also has a `testbench` [module
 ![](./update-monitor.png)
 
 ### Add as dependency
-Since this library only has 4 small classes, you could just
+Since this library only has 3 small classes, you could just
 copy & paste them into your own project. If you prefer
 proper dependency management, you can use Jitpack:
 
@@ -71,7 +71,7 @@ repositories {
 ...
 dependencies {
   ...
-  implementation 'com.github.knokko.update-loop:implementation:v1.0.0'
+  implementation 'com.github.knokko.update-loop:implementation:v1.0.1'
 }
 ```
 
@@ -89,6 +89,6 @@ dependencies {
 <dependency>
   <groupId>com.github.knokko.update-loop</groupId>
   <artifactId>implementation</artifactId>
-  <version>v1.0.0</version>
+  <version>v1.0.1</version>
 </dependency>
 ```

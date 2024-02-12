@@ -115,7 +115,7 @@ the update function to be called 100 times per second
 for 2 minutes long (rather than the desired update
 frequency of 20 times).
 
-## Sliding window
+## Limit maximum backlog
 Whether this behavior is desired, depends on the
 application. For games, it probably isn't (imagine
 all enemies suddenly running 5 times as fast
@@ -126,25 +126,16 @@ you should use an approach that is more robust than
 the naive sleep approach, but is not as desperate as the
 smarter sleeping approach. 
 
-For instance, instead of counting the number of updates 
-since the start of the application, you could count the 
-number of updates the past second. When a single update
-invocation takes too long, the system will simply cancel
-or shorten the `sleepTime` of the next iteration (and
-possibly affect some more iterations). When the execution
-time of the update function is consistently larger than
-the desired update period, the system won't sleep
-because the number of updates per second is always smaller
-than desired. When the execution time of the update
-function suddenly drops, the system will try to compensate
-for the *missed updates during the last second* rather
-than all missed updates during the peak hours. Thus the
-system will continue normal operation after at most 1
-second.
+The lagg problem of the *smarter sleeping* approach can
+be solved by limiting the maximum backlog: when the
+backlog is larger than some constant, any additional
+backlog should be discarded. This can be implemented by
+increasing the `startTime` by the additional backlog.
 
 ## The `UpdateLoop` class
-The `UpdateLoop` class of this library uses a sliding
-window to track the number of updates that happened
-during the past N updates. Both the update period and the
-length of the sliding window are configurable. Together,
-they determine how much time it 'looks back'
+The `UpdateLoop` class of this library implements the
+*smarter sleeping* approach with a maximum backlog.
+It is slightly more complicated because it also allows
+the period and maximum backlog to be changed at any time.
+Instead of trying to implement all this logic yourself,
+you can just use `UpdateLoop`.
