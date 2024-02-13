@@ -100,10 +100,11 @@ public class UpdateLoop implements Runnable {
     }
 
     private long determineSleepTime(long currentTime) {
-        long nextUpdateAt = reference.time + reference.counter * period;
+        Reference currentReference = reference;
+        long nextUpdateAt = currentReference.time + currentReference.counter * period;
         long nextSleepTime = nextUpdateAt - currentTime;
 
-        if (-nextSleepTime > maximumBacklog) reference.time += -nextSleepTime - maximumBacklog;
+        if (-nextSleepTime > maximumBacklog) currentReference.time += -nextSleepTime - maximumBacklog;
 
         return nextSleepTime / 1000_000L;
     }
