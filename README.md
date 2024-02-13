@@ -71,7 +71,7 @@ repositories {
 ...
 dependencies {
   ...
-  implementation 'com.github.knokko.update-loop:implementation:v1.0.1'
+  implementation 'com.github.knokko.update-loop:implementation:v2.0.0'
 }
 ```
 
@@ -89,6 +89,6 @@ dependencies {
 <dependency>
   <groupId>com.github.knokko.update-loop</groupId>
   <artifactId>implementation</artifactId>
-  <version>v1.0.1</version>
+  <version>v2.0.0</version>
 </dependency>
 ```
