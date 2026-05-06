@@ -59,7 +59,7 @@ For demonstration purposes, this project also has a `testbench` [module
 ### Add as dependency
 Since this library only has 3 small classes, you could just
 copy & paste them into your own project. If you prefer
-proper dependency management, you can use Jitpack:
+proper dependency management, you can use my reposilite:
 
 #### Gradle
 ```
