@@ -1,34 +1,57 @@
 plugins {
-    id 'java'
+	id "java"
+	id "maven-publish"
 }
 
 allprojects {
-    apply plugin: 'java'
+	apply plugin: "java"
 
-    java {
-        sourceCompatibility = "8"
-        targetCompatibility = "8"
-    }
+	java {
+		withSourcesJar()
+		sourceCompatibility = "8"
+		targetCompatibility = "8"
+	}
 
-    repositories {
-        mavenCentral()
-    }
+	repositories {
+		mavenCentral()
+	}
 }
 
-project(':implementation') {
-    dependencies {
-        testImplementation platform('org.junit:junit-bom:5.10.0')
-        testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
-        testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+project(":implementation") {
+	dependencies {
+		testImplementation platform("org.junit:junit-bom:5.10.0")
+		testImplementation "org.junit.jupiter:junit-jupiter:5.10.0"
+		testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
-        test {
-            useJUnitPlatform()
-        }
-    }
+		test {
+			useJUnitPlatform()
+		}
+	}
+
+	publishing {
+		repositories {
+			maven {
+				name = "knokkoReposiliteUpdateLoop"
+				url = "https://49.12.188.159:8080/releases/"
+				credentials(PasswordCredentials)
+				authentication {
+					basic(BasicAuthentication)
+				}
+			}
+		}
+		publications {
+			mavenJava(MavenPublication) {
+				groupId = "com.github.knokko"
+				artifactId = "update-loop"
+				version = "2.0.1"
+				from components.java
+			}
+		}
+	}
 }
 
-project(':testbench') {
-    dependencies {
-        implementation project(':implementation')
-    }
+project(":testbench") {
+	dependencies {
+		implementation project(":implementation")
+	}
 }

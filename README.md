@@ -66,12 +66,15 @@ proper dependency management, you can use Jitpack:
 ...
 repositories {
   ...
-  maven { url 'https://jitpack.io' }
+  maven {
+	name = "knokko-reposilite"
+	url = "https://49.12.188.159:8080/releases/"
+  }
 }
 ...
 dependencies {
   ...
-  implementation 'com.github.knokko.update-loop:implementation:v2.0.0'
+  implementation "com.github.knokko:update-loop:2.0.1"
 }
 ```
 
@@ -81,14 +84,15 @@ dependencies {
 <repositories>
   ...
   <repository>
-    <id>jitpack.io</id>
-    <url>https://jitpack.io</url>
+    <id>knokko-reposilite</id>
+    <name>Knokko Reposilite</name>
+    <url>https://49.12.188.159:8080/releases/</url>
   </repository>
 </repositories>
 ...
 <dependency>
-  <groupId>com.github.knokko.update-loop</groupId>
-  <artifactId>implementation</artifactId>
-  <version>v2.0.0</version>
+  <groupId>com.github.knokko</groupId>
+  <artifactId>update-loop</artifactId>
+  <version>2.0.1</version>
 </dependency>
 ```
